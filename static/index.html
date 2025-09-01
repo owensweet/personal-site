@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 
     <style>
         * {
@@ -119,12 +120,33 @@
         .content-inner {
             max-width: 600px;
             padding: 2rem;
+            border:2px solid white;
+            position: relative;
         }
 
         #tech .content-inner {
             width: 90%;
             max-width: 800px;
+            max-height: 80vh;
             overflow-y: auto;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #fff;
+            border-radius: 0px;
+            min-height: 20px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ccc;
         }
 
         .content h2 {
@@ -172,7 +194,7 @@
             background: none;
             border: none;
             color: #666;
-            font-size: 1.5rem;
+            font-size: 2.0rem;
             cursor: pointer;
             font-family: inherit;
             transition: color 0.3s ease;
@@ -276,6 +298,7 @@
             
             .content-inner {
                 padding: 1rem;
+                margin: 2rem;
             }
         }
     </style>
@@ -295,8 +318,8 @@
 
     <!-- About Content -->
     <div id="about" class="content">
-        <button class="close" onclick="showHome()">×</button>
         <div class="content-inner">
+            <button class="close" onclick="showHome()">×</button>
             <h2>about</h2>
             <div id="about-text" class="loading">loading...</div>
         </div>
@@ -304,8 +327,8 @@
 
     <!-- Projects Content -->
     <div id="projects" class="content">
-        <button class="close" onclick="showHome()">×</button>
         <div class="content-inner">
+            <button class="close" onclick="showHome()">×</button>
             <h2>work</h2>
             <div id="projects-container" class="loading">loading...</div>
         </div>
@@ -313,8 +336,8 @@
 
     <!-- Tech Stack Content -->
     <div id="tech" class="content">
-        <button class="close" onclick="showHome()">×</button>
         <div class="content-inner">
+            <button class="close" onclick="showHome()">×</button>
             <h2>tech stack</h2>
             <div id="tech-container" class="loading">loading...</div>
         </div>
@@ -323,13 +346,13 @@
     <script>
         const API_BASE = '/api';
         const kaomojis = [
+            '(._.)',
             '( ◡ ‿ ◡ )',
-            '(◕‿◕)',
-            '(｡◕‿◕｡)',
+            '(^_^)',
             '( ◕ ◡ ◕ )',
-            '(◉‿◉)',
+            '<`～´>',
             '( ◔ ‿ ◔ )',
-            '<`～´>'
+            '(ー_ー)!!'
         ];
         let currentKaomojiIndex = 0;
 
