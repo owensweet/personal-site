@@ -27,7 +27,7 @@ func main() {
 		"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
 		"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
 
-		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original-wordmark.svg",
+		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
 		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg",
 		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg",
 		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/r/r-original.svg",
@@ -39,6 +39,7 @@ func main() {
 		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ocaml/ocaml-original.svg",
 		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg",
 		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg",
+		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/elixir/elixir-original.svg",
 	}
 
 	outputDir := "../static/icons"

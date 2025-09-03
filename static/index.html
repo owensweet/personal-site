@@ -189,12 +189,12 @@
 
         .close {
             position: absolute;
-            top: 2rem;
+            top: 1.5rem;
             right: 2rem;
             background: none;
             border: none;
-            color: #666;
-            font-size: 2.0rem;
+            color: #7b7b7b;
+            font-size: 1.8rem;
             cursor: pointer;
             font-family: inherit;
             transition: color 0.3s ease;
@@ -400,9 +400,10 @@
                 
                 const text = await response.text();
                 aboutText.innerHTML = `
-                    <p>${text.trim()}</p>
-                    <p>i build things with code. currently interested in systems programming, web technologies, and elegant solutions to complex problems.</p>
-                    <p>when not coding, probably reading documentation or staring at terminal screens.</p>
+                    <p>I am a BCIT CST student. I loved making simple flash games in elementary school, and that love for building and problem solving stayed with me.</p>
+                    <p>For the last 3 years, I have been developing software for startups and have setup backend systems for my school.</p>
+                    <p>I am currently interested in CI/CD tools and systems programming.</p>
+                    <p>When not coding, probably making music or going on a hike.</p>
                 `;
             } catch (error) {
                 aboutText.innerHTML = `<div class="error">failed to load: ${error.message}</div>`;
