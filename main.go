@@ -84,13 +84,14 @@ func techHandler(w http.ResponseWriter, r *http.Request) {
 		{Name: "HTML5", Category: "languages", Icon: "/icons/html5-original.svg", Color: "#ff0000"},
 		{Name: "Ocaml", Category: "languages", Icon: "/icons/ocaml-original.svg", Color: "#ffff00"},
 		{Name: "C#", Category: "languages", Icon: "/icons/csharp-original.svg", Color: "#0000ff"},
+		{Name: "Elixir", Category: "languages", Icon: "/icons/elixir-original.svg", Color: "#a929f4ff"},
 
 		// Frameworks & Libraries
 		{Name: "React", Category: "frameworks", Icon: "/icons/react-original.svg", Color: "#61DAFB"},
 		{Name: "Next.js", Category: "frameworks", Icon: "/icons/nextjs-original.svg", Color: "#000000"},
 		{Name: "Django", Category: "frameworks", Icon: "/icons/django-plain.svg", Color: "#000000"},
 		{Name: "Node.js", Category: "frameworks", Icon: "/icons/nodejs-original.svg", Color: "#339933"},
-		{Name: "Tailwind css", Category: "frameworks", Icon: "/icons/tailwindcss-original-wordmark.svg", Color: "#2afcfcff"},
+		{Name: "Tailwind css", Category: "frameworks", Icon: "/icons/tailwindcss-original.svg", Color: "#2afcfcff"},
 		{Name: "Pandas", Category: "frameworks", Icon: "/icons/pandas-original.svg", Color: "#000000"},
 
 		// DevOps &
