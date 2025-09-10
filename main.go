@@ -62,8 +62,10 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 // GET /api/projects
 func projectsHandler(w http.ResponseWriter, r *http.Request) {
 	projects := []Project{
-		{Name: "BCIT Accreditation System", Description: "Deployed the backend database and interface system for the engineering departments of BCIT"},
-		{Name: "Atmoxhere", Description: "Interactive clothing website built on next.js"},
+		{Name: "BCIT Accreditation System", Description: "Deployed the backend database and interface system for the engineering departments of BCIT. Designed the relational database and REST APIs. Used python's Django framework for the backend, and used Docker and Nginx to host on BCIT servers. It is currently being used by almost 100 faculty every semester."},
+		{Name: "Meetup", Description: "A navigation app built on GoogleMaps API, to calculate a meeting point between two people and taking into account different modes of transportation"},
+		{Name: "Golden Gaming", Description: "A gaming social platform built for use in senior homes. Under agile development, created the fullstack application along with 4 other team members. Used MongoDB for storage, Websockets for chat system, and REST APIs with Express.js."},
+		{Name: "Ada Analytics", Description: "Helped a startup create a new stock scoring feature. Used python libraries to web scrape stock ticker data, and then feed it to a genetic algorithm."}
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(projects)
@@ -85,6 +87,7 @@ func techHandler(w http.ResponseWriter, r *http.Request) {
 		{Name: "Ocaml", Category: "languages", Icon: "/icons/ocaml-original.svg", Color: "#ffff00"},
 		{Name: "C#", Category: "languages", Icon: "/icons/csharp-original.svg", Color: "#0000ff"},
 		{Name: "Elixir", Category: "languages", Icon: "/icons/elixir-original.svg", Color: "#a929f4ff"},
+		{Name: "Rust", Category: "languages", Icon: "/icons/rust-original.svg", Color: "#000000"},
 
 		// Frameworks & Libraries
 		{Name: "React", Category: "frameworks", Icon: "/icons/react-original.svg", Color: "#61DAFB"},
