@@ -40,6 +40,7 @@ func main() {
 		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg",
 		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg",
 		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/elixir/elixir-original.svg",
+		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg",
 	}
 
 	outputDir := "../static/icons"
