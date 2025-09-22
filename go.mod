@@ -1,3 +1,3 @@
-module github.com/owensweet/personal-site
+module personal-site
 
 go 1.24.5

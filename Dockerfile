@@ -1,11 +1,16 @@
-FROM golang:1.24.5-alpine
+FROM golang:1.21-alpine
 
 WORKDIR /app
 
-COPY ./app /app
+COPY go.mod go.sum ./
+RUN go mod download
 
-RUN go build -o personal-site
+COPY ./app /app
+COPY ./static /static
+
+RUN go build -o personal-site ./app/main.go
 
 EXPOSE 8080
 
 CMD ["./personal-site"]
+
