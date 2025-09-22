@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_security_group" "go_app_sg" {
   name        = "go-app-sg"
-  description = "Allow SSH and HTTP"
+  description = "Allow SSH, HTTP and HTTPS"
 
   ingress {
     from_port   = 22
@@ -16,6 +16,14 @@ resource "aws_security_group" "go_app_sg" {
   ingress {
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Add HTTPS port
+  ingress {
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -51,21 +59,24 @@ resource "aws_instance" "go_app" {
     #!/bin/bash
     # Update system
     sudo dnf update -y
-
-    sudo dnf install -y git
-
-    sudo dnf install -y docker
+    sudo dnf install -y git docker
+    
+    # Start Docker
     sudo systemctl enable docker
     sudo systemctl start docker
-
+    
+    # Add ec2-user to docker group
     sudo usermod -aG docker ec2-user
-
-    sudo curl -L "https://github.com/docker/compose/releases/download/v2.28.2/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
+    
+    # Install Docker Compose V2 as plugin (recommended for Amazon Linux 2023)
+    sudo mkdir -p /usr/local/lib/docker/cli-plugins
+    sudo curl -SL "https://github.com/docker/compose/releases/download/v2.28.2/docker-compose-linux-x86_64" -o /usr/local/lib/docker/cli-plugins/docker-compose
+    sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+    
+    # Also install as standalone for backward compatibility
+    sudo ln -s /usr/local/lib/docker/cli-plugins/docker-compose /usr/local/bin/docker-compose
   EOF
-
 }
-
 
 resource "aws_eip" "go_app_ip" {
   instance = aws_instance.go_app.id
