@@ -60,10 +60,10 @@ resource "aws_instance" "go_app" {
 
     sudo usermod -aG docker ec2-user
 
-    DOCKER_COMPOSE_VERSION="2.20.2"
-    sudo curl -L "https://github.com/docker/compose/releases/download/v\${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/v2.28.2/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
   EOF
+
 }
 
 
