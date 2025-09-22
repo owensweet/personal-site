@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY ./app /app
 COPY ./static /static
-COPY go.mod ./
 
 RUN go build -o personal-site
 
