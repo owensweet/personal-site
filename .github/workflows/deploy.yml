@@ -49,8 +49,27 @@ jobs:
           key: ${{ secrets.EC2_PEM }}
           port: 22
           script: |
-            cd /home/ec2-user/personal-site
-            docker-compose pull
-            docker-compose up -d --remove-orphans
+            # Install Docker and compose plugin if missing
+            if ! command -v docker &> /dev/null; then
+              sudo dnf install -y docker docker-compose-plugin
+              sudo systemctl start docker
+              sudo systemctl enable docker
+              sudo usermod -aG docker ec2-user
+            fi
+
+            # Go to home and clone/update repo
+            cd /home/ec2-user
+            if [ ! -d personal-site ]; then
+              git clone https://github.com/owensweet/personal-site.git
+            else
+              cd personal-site
+              git pull
+            fi
+            cd personal-site
+
+            # Run Docker Compose (plugin version)
+            docker compose pull
+            docker compose up -d --remove-orphans
             docker system prune -f
+
 
