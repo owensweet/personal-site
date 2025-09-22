@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "go_app_sg" {
-  name        = "go-app-sg"
+  name        = "go-app-sg-terraform"
   description = "Allow SSH, HTTP and HTTPS"
 
   ingress {

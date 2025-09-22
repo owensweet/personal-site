@@ -1,7 +1,7 @@
 {
   "version": 4,
   "terraform_version": "1.13.3",
-  "serial": 47,
+  "serial": 34,
   "lineage": "b4074a5e-4179-ac8e-b99d-875fd7942091",
   "outputs": {},
   "resources": [
@@ -18,18 +18,18 @@
             "allocation_id": "eipalloc-094b65863bc1e02a4",
             "arn": "arn:aws:ec2:ca-west-1:066691736159:elastic-ip/eipalloc-094b65863bc1e02a4",
             "associate_with_private_ip": null,
-            "association_id": "eipassoc-039f4bd92d38c0f15",
+            "association_id": "eipassoc-09e4ce8ff400bbfdb",
             "carrier_ip": "",
             "customer_owned_ip": "",
             "customer_owned_ipv4_pool": "",
             "domain": "vpc",
             "id": "eipalloc-094b65863bc1e02a4",
-            "instance": "i-02259422049da83a6",
+            "instance": "i-0f1112e230df1474e",
             "ipam_pool_id": null,
             "network_border_group": "ca-west-1",
-            "network_interface": "eni-0aac817d74b075ad1",
-            "private_dns": "ip-172-31-38-124.ca-west-1.compute.internal",
-            "private_ip": "172.31.38.124",
+            "network_interface": "eni-05c62a6fda7020e2e",
+            "private_dns": "ip-172-31-41-63.ca-west-1.compute.internal",
+            "private_ip": "172.31.41.63",
             "ptr_record": "",
             "public_dns": "ec2-40-177-233-0.ca-west-1.compute.amazonaws.com",
             "public_ip": "40.177.233.0",
@@ -60,7 +60,7 @@
           "schema_version": 2,
           "attributes": {
             "ami": "ami-069e78ac413158ee1",
-            "arn": "arn:aws:ec2:ca-west-1:066691736159:instance/i-02259422049da83a6",
+            "arn": "arn:aws:ec2:ca-west-1:066691736159:instance/i-0f1112e230df1474e",
             "associate_public_ip_address": true,
             "availability_zone": "ca-west-1a",
             "capacity_reservation_specification": [
@@ -98,7 +98,7 @@
             "host_id": "",
             "host_resource_group_arn": null,
             "iam_instance_profile": "",
-            "id": "i-02259422049da83a6",
+            "id": "i-0f1112e230df1474e",
             "instance_initiated_shutdown_behavior": "stop",
             "instance_lifecycle": "",
             "instance_market_options": [],
@@ -132,11 +132,11 @@
             "primary_network_interface": [
               {
                 "delete_on_termination": true,
-                "network_interface_id": "eni-0aac817d74b075ad1"
+                "network_interface_id": "eni-05c62a6fda7020e2e"
               }
             ],
-            "primary_network_interface_id": "eni-0aac817d74b075ad1",
-            "private_dns": "ip-172-31-38-124.ca-west-1.compute.internal",
+            "primary_network_interface_id": "eni-05c62a6fda7020e2e",
+            "private_dns": "ip-172-31-41-63.ca-west-1.compute.internal",
             "private_dns_name_options": [
               {
                 "enable_resource_name_dns_a_record": false,
@@ -144,9 +144,9 @@
                 "hostname_type": "ip-name"
               }
             ],
-            "private_ip": "172.31.38.124",
-            "public_dns": "ec2-40-176-177-159.ca-west-1.compute.amazonaws.com",
-            "public_ip": "40.176.177.159",
+            "private_ip": "172.31.41.63",
+            "public_dns": "ec2-40-176-199-220.ca-west-1.compute.amazonaws.com",
+            "public_ip": "40.176.199.220",
             "region": "ca-west-1",
             "root_block_device": [
               {
@@ -158,14 +158,14 @@
                 "tags": {},
                 "tags_all": {},
                 "throughput": 125,
-                "volume_id": "vol-00e607d182c0d5e04",
+                "volume_id": "vol-02f9a058b078f498f",
                 "volume_size": 8,
                 "volume_type": "gp3"
               }
             ],
             "secondary_private_ips": [],
             "security_groups": [
-              "go-app-sg-terraform"
+              "go-app-sg"
             ],
             "source_dest_check": true,
             "spot_instance_request_id": "",
@@ -178,19 +178,19 @@
             },
             "tenancy": "default",
             "timeouts": null,
-            "user_data": "#!/bin/bash\n# Update system\nsudo dnf update -y\nsudo dnf install -y git docker\n    \n# Start Docker\nsudo systemctl enable docker\nsudo systemctl start docker\n    \n# Add ec2-user to docker group\nsudo usermod -aG docker ec2-user\n    \n# Install Docker Compose V2 as plugin (recommended for Amazon Linux 2023)\nsudo mkdir -p /usr/local/lib/docker/cli-plugins\nsudo curl -SL \"https://github.com/docker/compose/releases/download/v2.28.2/docker-compose-linux-x86_64\" -o /usr/local/lib/docker/cli-plugins/docker-compose\nsudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose\n    \n# Also install as standalone for backward compatibility\nsudo ln -s /usr/local/lib/docker/cli-plugins/docker-compose /usr/local/bin/docker-compose\n",
+            "user_data": "#!/bin/bash\n# Update system\nsudo dnf update -y\n\nsudo dnf install -y git\n\nsudo dnf install -y docker\nsudo systemctl enable docker\nsudo systemctl start docker\n\nsudo usermod -aG docker ec2-user\n\nsudo curl -L \"https://github.com/docker/compose/releases/download/v2.28.2/docker-compose-linux-x86_64\" -o /usr/local/bin/docker-compose\nsudo chmod +x /usr/local/bin/docker-compose\n",
             "user_data_base64": null,
             "user_data_replace_on_change": false,
             "volume_tags": null,
             "vpc_security_group_ids": [
-              "sg-0b2d9a2a77c540139"
+              "sg-0d7708061c1847964"
             ]
           },
           "sensitive_attributes": [],
           "identity_schema_version": 0,
           "identity": {
             "account_id": "066691736159",
-            "id": "i-02259422049da83a6",
+            "id": "i-0f1112e230df1474e",
             "region": "ca-west-1"
           },
           "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6MTIwMDAwMDAwMDAwMCwicmVhZCI6OTAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMiJ9",
@@ -237,89 +237,6 @@
       "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
       "instances": [
         {
-          "schema_version": 1,
-          "attributes": {
-            "arn": "arn:aws:ec2:ca-west-1:066691736159:security-group/sg-0b2d9a2a77c540139",
-            "description": "Allow SSH, HTTP and HTTPS",
-            "egress": [
-              {
-                "cidr_blocks": [
-                  "0.0.0.0/0"
-                ],
-                "description": "",
-                "from_port": 0,
-                "ipv6_cidr_blocks": [],
-                "prefix_list_ids": [],
-                "protocol": "-1",
-                "security_groups": [],
-                "self": false,
-                "to_port": 0
-              }
-            ],
-            "id": "sg-0b2d9a2a77c540139",
-            "ingress": [
-              {
-                "cidr_blocks": [
-                  "0.0.0.0/0"
-                ],
-                "description": "",
-                "from_port": 22,
-                "ipv6_cidr_blocks": [],
-                "prefix_list_ids": [],
-                "protocol": "tcp",
-                "security_groups": [],
-                "self": false,
-                "to_port": 22
-              },
-              {
-                "cidr_blocks": [
-                  "0.0.0.0/0"
-                ],
-                "description": "",
-                "from_port": 443,
-                "ipv6_cidr_blocks": [],
-                "prefix_list_ids": [],
-                "protocol": "tcp",
-                "security_groups": [],
-                "self": false,
-                "to_port": 443
-              },
-              {
-                "cidr_blocks": [
-                  "0.0.0.0/0"
-                ],
-                "description": "",
-                "from_port": 80,
-                "ipv6_cidr_blocks": [],
-                "prefix_list_ids": [],
-                "protocol": "tcp",
-                "security_groups": [],
-                "self": false,
-                "to_port": 80
-              }
-            ],
-            "name": "go-app-sg-terraform",
-            "name_prefix": "",
-            "owner_id": "066691736159",
-            "region": "ca-west-1",
-            "revoke_rules_on_delete": false,
-            "tags": null,
-            "tags_all": {},
-            "timeouts": null,
-            "vpc_id": "vpc-067e4522e2094767b"
-          },
-          "sensitive_attributes": [],
-          "identity_schema_version": 0,
-          "identity": {
-            "account_id": "066691736159",
-            "id": "sg-0b2d9a2a77c540139",
-            "region": "ca-west-1"
-          },
-          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6OTAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIxIn0=",
-          "create_before_destroy": true
-        },
-        {
-          "deposed": "918e7aa6",
           "schema_version": 1,
           "attributes": {
             "arn": "arn:aws:ec2:ca-west-1:066691736159:security-group/sg-0d7708061c1847964",
@@ -372,7 +289,7 @@
             "name_prefix": "",
             "owner_id": "066691736159",
             "region": "ca-west-1",
-            "revoke_rules_on_delete": null,
+            "revoke_rules_on_delete": false,
             "tags": {},
             "tags_all": {},
             "timeouts": null,
