@@ -1,0 +1,5 @@
+owensweet.dev {
+    reverse_proxy go-app:8080
+    tls o.sweet.work@gmail.com
+}
+

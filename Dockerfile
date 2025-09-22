@@ -2,7 +2,7 @@ FROM golang:1.24.5-alpine
 
 WORKDIR /app
 
-COPY . .
+COPY ./app /app
 
 RUN go build -o personal-site
 

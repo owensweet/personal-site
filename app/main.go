@@ -21,7 +21,7 @@ type TechItem struct {
 
 func main() {
 	// Serve static files
-	http.Handle("/", http.FileServer(http.Dir("./static/")))
+	http.Handle("/", http.FileServer(http.Dir("../static/")))
 
 	// API endpoints with CORS
 	http.HandleFunc("/api/about", corsMiddleware(aboutHandler))
