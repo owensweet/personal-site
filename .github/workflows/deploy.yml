@@ -49,7 +49,7 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_PEM }}
           port: 22
-          source: "docker-compose.yml,Caddyfile"
+          source: "Caddyfile"
           target: "/home/ec2-user/personal-site/"
           
       - uses: appleboy/ssh-action@v0.1.7
@@ -66,28 +66,63 @@ jobs:
             mkdir -p /home/ec2-user/personal-site
             cd /home/ec2-user/personal-site
             
-            # Use newgrp to activate docker group membership in this session
+            # Add ec2-user to docker group and activate it
+            sudo usermod -aG docker ec2-user
             newgrp docker << 'DOCKER_COMMANDS'
             
-            # Try Docker Compose V2 first (plugin), then fallback to V1
-            if docker compose version &> /dev/null; then
-              echo "Using Docker Compose V2"
-              docker compose pull
-              docker compose down --remove-orphans
-              docker compose up -d
-            elif command -v docker-compose &> /dev/null; then
-              echo "Using Docker Compose V1"
-              docker-compose pull
-              docker-compose down --remove-orphans  
-              docker-compose up -d
+            # Clean up any existing containers with the same names
+            echo "Cleaning up existing containers..."
+            docker stop go-app caddy 2>/dev/null || true
+            docker rm go-app caddy 2>/dev/null || true
+            
+            # Create network (ignore error if it already exists)
+            docker network create personal-site-network 2>/dev/null || true
+            
+            # Pull the latest images
+            echo "Pulling latest images..."
+            docker pull owensweet/personal-site:latest
+            docker pull caddy:2
+            
+            # Run your Go app
+            echo "Starting Go application..."
+            docker run -d \
+              --name go-app \
+              --network personal-site-network \
+              --restart always \
+              owensweet/personal-site:latest
+            
+            # Run Caddy
+            echo "Starting Caddy reverse proxy..."
+            docker run -d \
+              --name caddy \
+              --network personal-site-network \
+              --restart always \
+              -p 80:80 \
+              -p 443:443 \
+              -v /home/ec2-user/personal-site/Caddyfile:/etc/caddy/Caddyfile \
+              caddy:2
+            
+            # Wait a moment for containers to start
+            sleep 5
+            
+            # Check if containers are running
+            echo "Checking container status..."
+            docker ps
+            
+            # Test the setup
+            echo "Testing the setup..."
+            if curl -s http://localhost >/dev/null; then
+              echo "Site is responding correctly!"
             else
-              echo "Docker Compose not found, installing..."
-              sudo curl -L "https://github.com/docker/compose/releases/download/v2.28.2/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
-              sudo chmod +x /usr/local/bin/docker-compose
-              docker-compose pull
-              docker-compose up -d
+              echo "Site is not responding, checking logs..."
+              echo "Go app logs:"
+              docker logs go-app
+              echo "Caddy logs:"
+              docker logs caddy
             fi
             
-            # Clean up
+            # Clean up unused images and containers
+            echo "Cleaning up unused resources..."
             docker system prune -f
+            
             DOCKER_COMMANDS
