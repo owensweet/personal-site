@@ -52,21 +52,17 @@ resource "aws_instance" "go_app" {
     # Update system
     sudo dnf update -y
 
+    sudo dnf install -y git
+
     sudo dnf install -y docker
     sudo systemctl enable docker
     sudo systemctl start docker
 
-    sudo dnf install -y docker-compose-plugin
-
     sudo usermod -aG docker ec2-user
 
-    sleep 10
-
-    cd /home/ec2-user
-    git clone https://github.com/owensweet/personal-site.git
-    cd personal-site
-
-    docker compose up -d
+    DOCKER_COMPOSE_VERSION="2.20.2"
+    sudo curl -L "https://github.com/docker/compose/releases/download/v${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
   EOF
 }
 

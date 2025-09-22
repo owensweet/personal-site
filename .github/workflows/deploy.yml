@@ -49,27 +49,31 @@ jobs:
           key: ${{ secrets.EC2_PEM }}
           port: 22
           script: |
-            # Install Docker and compose plugin if missing
+            # Install Docker if missing
             if ! command -v docker &> /dev/null; then
-              sudo dnf install -y docker docker-compose-plugin
+              sudo dnf install -y docker
               sudo systemctl start docker
               sudo systemctl enable docker
               sudo usermod -aG docker ec2-user
             fi
 
-            # Go to home and clone/update repo
+            # Install Docker Compose manually
+            if ! command -v docker-compose &> /dev/null; then
+              DOCKER_COMPOSE_VERSION="2.20.2"
+              sudo curl -L "https://github.com/docker/compose/releases/download/v${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+              sudo chmod +x /usr/local/bin/docker-compose
+            fi
+
+            # Clone/update repo
             cd /home/ec2-user
             if [ ! -d personal-site ]; then
               git clone https://github.com/owensweet/personal-site.git
-            else
-              cd personal-site
-              git pull
             fi
             cd personal-site
+            git pull
 
-            # Run Docker Compose (plugin version)
-            docker compose pull
-            docker compose up -d --remove-orphans
+            # Run Docker Compose
+            docker-compose pull
+            docker-compose up -d --remove-orphans
             docker system prune -f
-
 
