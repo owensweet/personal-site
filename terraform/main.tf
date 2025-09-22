@@ -43,6 +43,10 @@ resource "aws_instance" "go_app" {
     Name = "personal-site"
   }
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   user_data = <<-EOF
     #!/bin/bash
     # Update system

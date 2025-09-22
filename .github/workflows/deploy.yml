@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - run: |
-          docker build -t owensweet/personal-site:latest ./app
+          docker build -t owensweet/personal-site:latest .
           docker push owensweet/personal-site:latest
 
   deploy:
