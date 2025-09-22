@@ -30,7 +30,7 @@ resource "aws_security_group" "go_app_sg" {
 
 resource "aws_key_pair" "go_key" {
   key_name   = "personal-site-key"
-  public_key = file("~/.ssh/personal-site-key.pub")
+  public_key = file("personal-site-key.pub")
 }
 
 resource "aws_instance" "go_app" {
