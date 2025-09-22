@@ -34,7 +34,6 @@ func main() {
 	log.Fatal(http.ListenAndServe(port, nil))
 }
 
-// Middleware setup
 func corsMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
