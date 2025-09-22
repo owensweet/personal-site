@@ -2,13 +2,11 @@ FROM golang:1.21-alpine
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
-RUN go mod download
-
 COPY ./app /app
 COPY ./static /static
+COPY go.mod ./
 
-RUN go build -o personal-site ./app/main.go
+RUN go build -o personal-site
 
 EXPOSE 8080
 
