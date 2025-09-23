@@ -119,6 +119,13 @@
             overflow-y: auto;
         }
 
+        #projects .content-inner {
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
         ::-webkit-scrollbar {
             width: 4px;
         }
