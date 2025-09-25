@@ -119,6 +119,13 @@
             overflow-y: auto;
         }
 
+        #projects .content-inner {
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
         ::-webkit-scrollbar {
             width: 4px;
         }
@@ -292,4 +299,27 @@
                 padding: 1rem;
                 margin: 2rem;
             }
+        }
+
+        * {
+        cursor: none;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            mix-blend-mode: difference;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.3s ease;
+            }
+
+            .custom-cursor.scale-up {
+            transform: scale(5);
+            transition: transform 0.3s ease;
         }

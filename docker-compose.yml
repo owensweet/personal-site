@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  go-app:
+    image: owensweet/personal-site:latest 
+    container_name: go-app
+    ports:
+      - "8080:8080"
+    restart: always
+
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - go-app
+    restart: always
+
+volumes:
+  caddy_data:
+  caddy_config:
+

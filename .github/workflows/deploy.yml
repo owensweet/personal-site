@@ -1,0 +1,128 @@
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terraform
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.7.0
+      - run: terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - run: terraform apply -auto-approve
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: terraform
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/setup-buildx-action@v2
+      - uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - run: |
+          docker build -t owensweet/personal-site:latest .
+          docker push owensweet/personal-site:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: docker
+    steps:
+      - uses: actions/checkout@v3
+      - uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_PUBLIC_IP }}
+          username: ec2-user
+          key: ${{ secrets.EC2_PEM }}
+          port: 22
+          source: "Caddyfile"
+          target: "/home/ec2-user/personal-site/"
+          
+      - uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_PUBLIC_IP }}
+          username: ec2-user
+          key: ${{ secrets.EC2_PEM }}
+          port: 22
+          script: |
+            # Ensure Docker is running
+            sudo systemctl start docker
+            
+            # Create project directory
+            mkdir -p /home/ec2-user/personal-site
+            cd /home/ec2-user/personal-site
+            
+            # Add ec2-user to docker group and activate it
+            sudo usermod -aG docker ec2-user
+            newgrp docker << 'DOCKER_COMMANDS'
+            
+            # Clean up any existing containers with the same names
+            echo "Cleaning up existing containers..."
+            docker stop go-app caddy 2>/dev/null || true
+            docker rm go-app caddy 2>/dev/null || true
+            
+            # Create network (ignore error if it already exists)
+            docker network create personal-site-network 2>/dev/null || true
+            
+            # Pull the latest images
+            echo "Pulling latest images..."
+            docker pull owensweet/personal-site:latest
+            docker pull caddy:2
+            
+            # Run your Go app
+            echo "Starting Go application..."
+            docker run -d \
+              --name go-app \
+              --network personal-site-network \
+              --restart always \
+              owensweet/personal-site:latest
+            
+            # Run Caddy
+            echo "Starting Caddy reverse proxy..."
+            docker run -d \
+              --name caddy \
+              --network personal-site-network \
+              --restart always \
+              -p 80:80 \
+              -p 443:443 \
+              -v /home/ec2-user/personal-site/Caddyfile:/etc/caddy/Caddyfile \
+              caddy:2
+            
+            # Wait a moment for containers to start
+            sleep 5
+            
+            # Check if containers are running
+            echo "Checking container status..."
+            docker ps
+            
+            # Test the setup
+            echo "Testing the setup..."
+            if curl -s http://localhost >/dev/null; then
+              echo "Site is responding correctly!"
+            else
+              echo "Site is not responding, checking logs..."
+              echo "Go app logs:"
+              docker logs go-app
+              echo "Caddy logs:"
+              docker logs caddy
+            fi
+            
+            # Clean up unused images and containers
+            echo "Cleaning up unused resources..."
+            docker system prune -f
+            
+            DOCKER_COMMANDS

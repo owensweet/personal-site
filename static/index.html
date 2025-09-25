@@ -8,8 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
 
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
 </head>
 <body>
     <div class="container">
@@ -198,6 +199,29 @@
                 cycleKaomoji();
             }
         }, 3000);
+
+        // For the cursor
+        document.addEventListener('DOMContentLoaded', function() {
+        var cursor = document.createElement('div');
+        cursor.classList.add('custom-cursor');
+        document.body.appendChild(cursor);
+
+        document.addEventListener('mousemove', function(e) {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        var linkElements = document.querySelectorAll('.link, .cards-cta');
+        linkElements.forEach(function(element) {
+            element.addEventListener('mouseenter', function() {
+            cursor.classList.add('scale-up');
+            });
+
+            element.addEventListener('mouseleave', function() {
+            cursor.classList.remove('scale-up');
+            });
+        });
+        });
     </script>
 </body>
 </html>
