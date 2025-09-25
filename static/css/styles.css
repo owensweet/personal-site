@@ -190,7 +190,7 @@
             border: none;
             color: #7b7b7b;
             font-size: 1.8rem;
-            cursor: pointer;
+            cursor: none;
             font-family: inherit;
             transition: color 0.3s ease;
         }
