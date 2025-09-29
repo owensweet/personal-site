@@ -43,10 +43,6 @@ func main() {
 		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg",
 		"https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg",
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 9f06babe7e834f4a7ece375647057d0f001fc893
 	outputDir := "../static/icons"
 	os.MkdirAll(outputDir, os.ModePerm)
 
