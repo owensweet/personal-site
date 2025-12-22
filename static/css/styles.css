@@ -15,25 +15,52 @@
             overflow: hidden;
         }
 
+        #background-gif {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/static/images/field1.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #background-gif.active {
+            opacity: 0.6;
+            z-index: 1;
+        }
+
         .container {
             text-align: center;
             position: relative;
+            background: transparent;
+            transition: opacity 0.3s ease;
+            width: 40%;
         }
 
         .name {
+            /* font-family: "Azeret Mono", monospace; */
+            font-family: "Monomakh", system-ui;
+            font-optical-sizing: auto;
+            font-style: normal;
             font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: 400;
-            letter-spacing: 0.1em;
+            font-weight: 500;
             margin-bottom: 2rem;
             opacity: 0;
             animation: fadeIn 1.5s ease forwards;
         }
 
         .kaomoji {
-            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-size: clamp(1.5rem, 3vw, 2rem);
             line-height: 1;
             opacity: 0;
-            animation: fadeIn 1.5s ease 0.5s forwards, bounce 2s ease-in-out 2s infinite;
+            animation: fadeIn 1.2s ease 0.5s forwards;
             cursor: none;
             user-select: none;
             transition: transform 0.2s ease;
@@ -41,6 +68,11 @@
 
         .kaomoji:hover {
             transform: scale(1.1);
+        }
+
+        #kaomoji-container {
+            width: full;
+            height: 50px;
         }
 
         .nav {
@@ -110,6 +142,19 @@
             padding: 2rem;
             border:2px solid white;
             position: relative;
+        }
+
+        #about .content-inner {
+            max-width: 800px;
+        }
+
+        #about {
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        #about.active {
+            background-color: transparent;
+            z-index: 2;
         }
 
         #tech .content-inner {
@@ -294,13 +339,24 @@
                 gap: 1rem;
                 bottom: -8rem;
             }
+
+            .content p {
+                font-size: 0.7rem;
+            }
             
+            #projects-container * {
+                font-size: 0.7rem;
+            }
             .content-inner {
                 padding: 1rem;
                 margin: 2rem;
             }
             .custom-cursor {
                 display: none;
+            }
+            #kaomoji-container {
+                height: 50px;
+                margin-bottom: 16px;
             }
         }
 
