@@ -138,10 +138,17 @@
                 
                 const text = await response.text();
                 aboutText.innerHTML = `
-                    <p>I am a BCIT CST student. I loved making simple flash games in elementary school, and that love for building and problem solving stayed with me.</p>
-                    <p>For the last 3 years, I have been developing software for startups and have setup backend systems for my school.</p>
-                    <p>I am currently interested in CI/CD tools and systems programming.</p>
-                    <p>When not coding, probably making music or going on a hike.</p>
+                    <p>Hey, I’m Owen, a junior level software engineer from the lower mainland of British Columbia, Canada. I’m a new graduate from BCIT and for the last  3 years I have been developing and maintaining backend systems for startups and local companies.</p>
+
+<p>My coding journey started in elementary school when I discovered Hopscotch. It was basically Scratch for mobile, where you build programs by snapping blocks together instead of writing code. I remember making hundreds of games, almost everyday trying to remake games that I liked at the time, or just making something to show my friends. I was studying to become a physicist but I lost interest because I felt like I wasn’t creating anything, and I wasn’t solving problems that could help people. I had used python for physics simulations, and I was also curious about how 3D graphics worked so I decided to learn C. After a couple months of learning the basics of programming, I joined BCIT’s competitive Computer Systems Technology program. It was an overwhelming amount of learning and hands-on projects, but I enjoyed being able to build projects every day. I enjoyed learning about Operating Systems and working with low level programs. I felt like I finally understood all the layers that make an application function, all the way down to the logic gates. The web development courses were also a great starting point and it got me started working on my own personal websites, making sure they are secure and easy to work with (CI/CD).</p>
+
+<p>Apart from classwork I would always be working on side projects, even though the first couple ones were poorly made in retrospect. I remember making a web app that was just pure node.js and html. Now I take into account web architecture patterns, SOLID design principles, and just better frameworks to abstract a lot of the annoyances of JavaScript programming. I finished BCIT with a 4.0 GPA and with the Programming Paradigms specialization. Basically we had specialized courses for functional programming, concurrency, and distributed systems in languages like Elixir, Go, Rust, Haskell, and even OCaml (I actually don’t hate this language). I really liked Rust once I got used to it and I made a simple mp3 player with terminal UI. Go was also an interesting language and I actually made the server side for my personal website with the Go http package. At the end of the program, there was a class wide project to create a real-time game using the web framework for Elixir called Phoenix. I made the PRs for the full multiplayer backend which included functionality for the lobby and rooms, and real-time updates to each player’s UI. It was a nice test of my knowledge and was a fun project to work on. Also working with that many people was fun, even though it wasn’t easy to coordinate features.</p>
+
+<p>Outside of work, I like to make music. I played guitar for 9 years, and then moved to making music on my computer from the start of grade 8 till now. I make just instrumental songs but some of the songs I’ve produced for other people have gotten hundreds of thousands of streams. I also love competitive games, and I’ve played Tom Clancy’s Rainbow Six Siege at the highest level on and off for 7 years. I reached the highest rank in the game and achieved the top 2500 players globally, playing against professional players and streamers. I also played soccer growing up and made it to the top team in my club after climbing from the lowest rank team.</p>
+
+<p>I am currently interested in CI/CD tools and systems programming.</p>
+
+
                 `;
             } catch (error) {
                 aboutText.innerHTML = `<div class="error">failed to load: ${error.message}</div>`;
@@ -149,24 +156,50 @@
         }
 
         async function loadProjects() {
-            const projectsContainer = document.getElementById('projects-container');
-            
-            try {
-                const response = await fetch(`${API_BASE}/projects`);
-                if (!response.ok) throw new Error('network error');
-                
-                const projects = await response.json();
-                
-                projectsContainer.innerHTML = projects.map(project => `
-                    <div class="project-item">
-                        <div class="project-title">${project.name.toLowerCase()}</div>
-                        <div class="project-desc">${project.description.toLowerCase()}</div>
+    const projectsContainer = document.getElementById('projects-container');
+    
+    try {
+        const response = await fetch(`${API_BASE}/projects`);
+        if (!response.ok) throw new Error('network error');
+        
+        const projects = await response.json();
+        
+        projectsContainer.innerHTML = `
+            <div class="projects-grid">
+                ${projects.map(project => `
+                    <div class="project-card">
+                        <div class="project-status ${project.isPublic ? 'public' : 'private'}">
+                            ${project.isPublic ? 'public' : 'private'}
+                        </div>
+                        <div class="project-preview">
+                            ${project.gifUrl ? 
+                                `<img src="${project.gifUrl}" alt="${project.name}">` : 
+                                '<div class="project-preview-placeholder">[ preview ]</div>'}
+                        </div>
+                        <div class="project-info">
+                            <div>
+                                <div class="project-header">
+                                    <div class="project-title">${project.name.toLowerCase()}</div>
+                                </div>
+                                <div class="project-desc">${project.description.toLowerCase()}</div>
+                            </div>
+                            <div class="project-links">
+                                ${project.githubUrl ? 
+                                    `<a href="${project.githubUrl}" class="project-link" target="_blank">github</a>` : 
+                                    ''}
+                                ${project.liveUrl ? 
+                                    `<a href="${project.liveUrl}" class="project-link" target="_blank">live</a>` : 
+                                    ''}
+                            </div>
+                        </div>
                     </div>
-                `).join('');
-            } catch (error) {
-                projectsContainer.innerHTML = `<div class="error">failed to load: ${error.message}</div>`;
-            }
-        }
+                `).join('')}
+            </div>
+        `;
+    } catch (error) {
+        projectsContainer.innerHTML = `<div class="error">failed to load: ${error.message}</div>`;
+    }
+}
 
         async function loadTech() {
             const techContainer = document.getElementById('tech-container');
