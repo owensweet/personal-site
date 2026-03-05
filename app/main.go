@@ -98,6 +98,14 @@ func projectsHandler(w http.ResponseWriter, r *http.Request) {
 			LiveUrl:     "https://owensweet.dev",
 		},
 		{
+			Name:        "Atmoxhere",
+			Description: "Sci-fi clothing website built from scratch using Nextjs. Built a payment service, created the database, and used CSS and ThreeJS for frontend design. We have had over 1000 users in the first 2 months, and hundreds of messages praising the user experience. I chose this stack so that I could learn React while in school because none of my web development courses taught it. I used Stripe as a payment service, but it was a pain to have to write scripts to dynamically change the shipping country. I also wrote a CRUD class that would interact with the database. This was used for displaying products and also for the admin page that would allow my co-founder to change spotlight products, and edit all of the data from a user friendly interface.",
+			GifUrl:      "/static/images/atmoxhere.gif",
+			IsPublic:    true,
+			GithubUrl:   "https://github.com/owensweet/personal-site",
+			LiveUrl:     "https://atmoxhere.net",
+		},
+		{
 			Name:        "Meetup",
 			Description: "A navigation app built on GoogleMaps API, to calculate a meeting point between two people and taking into account different modes of transportation",
 			GifUrl:      "/static/gifs/meetup.gif",
