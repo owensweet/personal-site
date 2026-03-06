@@ -84,7 +84,7 @@ func projectsHandler(w http.ResponseWriter, r *http.Request) {
 		{
 			Name:        "BCIT Accreditation System",
 			Description: "Deployed the backend database and interface system for the engineering departments of BCIT. Designed the relational database and REST APIs. Used python's Django framework for the backend, and used Docker and Nginx to host on BCIT servers. It is currently being used by almost 100 faculty every semester.",
-			GifUrl:      "/static/images/bcit.gif",
+			GifUrl:      "/static/images/accreditation.png",
 			IsPublic:    false,
 			GithubUrl:   "",
 			LiveUrl:     "",
@@ -107,18 +107,10 @@ func projectsHandler(w http.ResponseWriter, r *http.Request) {
 		},
 		{
 			Name:        "Meetup",
-			Description: "A navigation app built on GoogleMaps API, to calculate a meeting point between two people and taking into account different modes of transportation",
+			Description: "A navigation app built on GoogleMaps API, to calculate a meeting point between two people and taking into account different modes of transportation. I made this in my first year to test my programming ability and work with external APIs.",
 			GifUrl:      "/static/gifs/meetup.gif",
 			IsPublic:    true,
 			GithubUrl:   "https://github.com/owensweet/meetup",
-			LiveUrl:     "",
-		},
-		{
-			Name:        "Golden Gaming",
-			Description: "A gaming social platform built for use in senior homes. Under agile development, created the fullstack application along with 4 other team members. Used MongoDB for storage, Websockets for chat system, and REST APIs with Express.js.",
-			GifUrl:      "/static/images/golden-gaming.gif",
-			IsPublic:    true,
-			GithubUrl:   "https://github.com/S/golden-gaming",
 			LiveUrl:     "",
 		},
 		{
