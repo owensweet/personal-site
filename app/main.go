@@ -92,7 +92,7 @@ func projectsHandler(w http.ResponseWriter, r *http.Request) {
 		{
 			Name:        "Personal Site",
 			Description: "Simple dev site, with the static files served from server programmed in Go. Hosted on an AWS EC2 instance and runs docker containers (1 for reverse proxy). CI/CD pipelines using github actions and IaC with Terraform.",
-			GifUrl:      "/static/images/personal-site.gif",
+			GifUrl:      "",
 			IsPublic:    true,
 			GithubUrl:   "https://github.com/owensweet/personal-site",
 			LiveUrl:     "https://owensweet.dev",
