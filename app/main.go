@@ -108,7 +108,7 @@ func projectsHandler(w http.ResponseWriter, r *http.Request) {
 		{
 			Name:        "Meetup",
 			Description: "A navigation app built on GoogleMaps API, to calculate a meeting point between two people and taking into account different modes of transportation. I made this in my first year to test my programming ability and work with external APIs.",
-			GifUrl:      "/static/gifs/meetup.gif",
+			GifUrl:      "/static/images/meetup.gif",
 			IsPublic:    true,
 			GithubUrl:   "https://github.com/owensweet/meetup",
 			LiveUrl:     "",
