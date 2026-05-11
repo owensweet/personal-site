@@ -22,12 +22,12 @@
         <div id="kaomoji-container">
             <div class="kaomoji" onclick="cycleKaomoji()">( ◡ ‿ ◡ )</div>
         </div>
-        
+
         <nav class="nav">
-            <a href="#" class="nav-item active" onclick="showHome()">home</a>
-            <a href="#" class="nav-item" onclick="showContent('about')">about</a>
-            <a href="#" class="nav-item" onclick="showContent('projects')">work</a>
-            <a href="#" class="nav-item" onclick="showContent('tech')">tools</a>
+            <a href="#" class="nav-item active" onclick="event.preventDefault(); goHome()">home</a>
+            <a href="#about" class="nav-item">about</a>
+            <a href="#projects" class="nav-item">work</a>
+            <a href="#tech" class="nav-item">tools</a>
             <a href="/static/images/OwenSweet.pdf" class="nav-item" target="_blank" rel="noopener noreferrer">resume -></a>
         </nav>
     </div>
@@ -35,7 +35,7 @@
     <!-- About Content -->
     <div id="about" class="content">
         <div class="content-inner">
-            <button class="close" onclick="showHome()">×</button>
+            <button class="close" onclick="goHome()">×</button>
             <h2>about</h2>
             <div id="about-text" class="loading">loading...</div>
         </div>
@@ -44,7 +44,7 @@
     <!-- Projects Content -->
     <div id="projects" class="content">
         <div class="content-inner">
-            <button class="close" onclick="showHome()">×</button>
+            <button class="close" onclick="goHome()">×</button>
             <h2>work</h2>
             <div id="projects-container" class="loading">loading...</div>
         </div>
@@ -53,7 +53,7 @@
     <!-- Tech Stack Content -->
     <div id="tech" class="content">
         <div class="content-inner">
-            <button class="close" onclick="showHome()">×</button>
+            <button class="close" onclick="goHome()">×</button>
             <h2>tech stack</h2>
             <div id="tech-container" class="loading">loading...</div>
         </div>
@@ -98,7 +98,6 @@
                 item.classList.remove('active');
             });
             document.querySelector('.nav-item').classList.add('active');
-
             document.getElementById('background-gif').classList.remove('active');
             document.querySelector('.container').style.opacity = '1';
         }
@@ -108,11 +107,12 @@
                 content.classList.remove('active');
             });
             document.getElementById(section).classList.add('active');
-            
+
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
-            event.target.classList.add('active');
+            const navItem = document.querySelector(`a[href="#${section}"]`);
+            if (navItem) navItem.classList.add('active');
 
             document.querySelector('.container').style.opacity = '0';
 
@@ -129,22 +129,44 @@
             }
         }
 
+        // Goes home and cleans the URL (no trailing #)
+        function goHome() {
+            history.pushState(null, '', location.pathname);
+            showHome();
+        }
+
+        // Sets the hash, which triggers hashchange → route()
+        function navigate(section) {
+            window.location.hash = section;
+        }
+
+        function route() {
+            const section = window.location.hash.slice(1);
+            if (!section) {
+                showHome();
+            } else if (['about', 'projects', 'tech'].includes(section)) {
+                showContent(section);
+            }
+        }
+
+        window.addEventListener('hashchange', route);
+
         async function loadAbout() {
             const aboutText = document.getElementById('about-text');
-            
+
             try {
                 const response = await fetch(`${API_BASE}/about`);
                 if (!response.ok) throw new Error('network error');
-                
+
                 const text = await response.text();
                 aboutText.innerHTML = `
-                    <p>Hey, I’m Owen, a junior level software engineer from the lower mainland of British Columbia, Canada. I’m a new graduate from BCIT and for the last  3 years I have been developing and maintaining backend systems for startups and local companies.</p>
+                    <p>Hey, I'm Owen, a junior level software engineer from the lower mainland of British Columbia, Canada. I'm a new graduate from BCIT and for the last  3 years I have been developing and maintaining backend systems for startups and local companies.</p>
 
-<p>My coding journey started in elementary school when I discovered Hopscotch. It was basically Scratch for mobile, where you build programs by snapping blocks together instead of writing code. I remember making hundreds of games, almost everyday trying to remake games that I liked at the time, or just making something to show my friends. I was studying to become a physicist but I lost interest because I felt like I wasn’t creating anything, and I wasn’t solving problems that could help people. I had used python for physics simulations, and I was also curious about how 3D graphics worked so I decided to learn C. After a couple months of learning the basics of programming, I joined BCIT’s competitive Computer Systems Technology program. It was an overwhelming amount of learning and hands-on projects, but I enjoyed being able to build projects every day. I enjoyed learning about Operating Systems and working with low level programs. I felt like I finally understood all the layers that make an application function, all the way down to the logic gates. The web development courses were also a great starting point and it got me started working on my own personal websites, making sure they are secure and easy to work with (CI/CD).</p>
+<p>My coding journey started in elementary school when I discovered Hopscotch. It was basically Scratch for mobile, where you build programs by snapping blocks together instead of writing code. I remember making hundreds of games, almost everyday trying to remake games that I liked at the time, or just making something to show my friends. I was studying to become a physicist but I lost interest because I felt like I wasn't creating anything, and I wasn't solving problems that could help people. I had used python for physics simulations, and I was also curious about how 3D graphics worked so I decided to learn C. After a couple months of learning the basics of programming, I joined BCIT's competitive Computer Systems Technology program. It was an overwhelming amount of learning and hands-on projects, but I enjoyed being able to build projects every day. I enjoyed learning about Operating Systems and working with low level programs. I felt like I finally understood all the layers that make an application function, all the way down to the logic gates. The web development courses were also a great starting point and it got me started working on my own personal websites, making sure they are secure and easy to work with (CI/CD).</p>
 
-<p>Apart from classwork I would always be working on side projects, even though the first couple ones were poorly made in retrospect. I remember making a web app that was just pure node.js and html. Now I take into account web architecture patterns, SOLID design principles, and just better frameworks to abstract a lot of the annoyances of JavaScript programming. I finished BCIT with a 4.0 GPA and with the Programming Paradigms specialization. Basically we had specialized courses for functional programming, concurrency, and distributed systems in languages like Elixir, Go, Rust, Haskell, and even OCaml (I actually don’t hate this language). I really liked Rust once I got used to it and I made a simple mp3 player with terminal UI. Go was also an interesting language and I actually made the server side for my personal website with the Go http package. At the end of the program, there was a class wide project to create a real-time game using the web framework for Elixir called Phoenix. I made the PRs for the full multiplayer backend which included functionality for the lobby and rooms, and real-time updates to each player’s UI. It was a nice test of my knowledge and was a fun project to work on. Also working with that many people was fun, even though it wasn’t easy to coordinate features.</p>
+<p>Apart from classwork I would always be working on side projects, even though the first couple ones were poorly made in retrospect. I remember making a web app that was just pure node.js and html. Now I take into account web architecture patterns, SOLID design principles, and just better frameworks to abstract a lot of the annoyances of JavaScript programming. I finished BCIT with a 4.0 GPA and with the Programming Paradigms specialization. Basically we had specialized courses for functional programming, concurrency, and distributed systems in languages like Elixir, Go, Rust, Haskell, and even OCaml (I actually don't hate this language). I really liked Rust once I got used to it and I made a simple mp3 player with terminal UI. Go was also an interesting language and I actually made the server side for my personal website with the Go http package. At the end of the program, there was a class wide project to create a real-time game using the web framework for Elixir called Phoenix. I made the PRs for the full multiplayer backend which included functionality for the lobby and rooms, and real-time updates to each player's UI. It was a nice test of my knowledge and was a fun project to work on. Also working with that many people was fun, even though it wasn't easy to coordinate features.</p>
 
-<p>Outside of work, I like to make music. I played guitar for 9 years, and then moved to making music on my computer from the start of grade 8 till now. I make just instrumental songs but some of the songs I’ve produced for other people have gotten hundreds of thousands of streams. I also love competitive games, and I’ve played Tom Clancy’s Rainbow Six Siege at the highest level on and off for 7 years. I reached the highest rank in the game and achieved the top 2500 players globally, playing against professional players and streamers. I also played soccer growing up and made it to the top team in my club after climbing from the lowest rank team.</p>
+<p>Outside of work, I like to make music. I played guitar for 9 years, and then moved to making music on my computer from the start of grade 8 till now. I make just instrumental songs but some of the songs I've produced for other people have gotten hundreds of thousands of streams. I also love competitive games, and I've played Tom Clancy's Rainbow Six Siege at the highest level on and off for 7 years. I reached the highest rank in the game and achieved the top 2500 players globally, playing against professional players and streamers. I also played soccer growing up and made it to the top team in my club after climbing from the lowest rank team.</p>
 
 <p>I am currently interested in CI/CD tools and systems programming.</p>
 
@@ -157,13 +179,13 @@
 
         async function loadProjects() {
     const projectsContainer = document.getElementById('projects-container');
-    
+
     try {
         const response = await fetch(`${API_BASE}/projects`);
         if (!response.ok) throw new Error('network error');
-        
+
         const projects = await response.json();
-        
+
         projectsContainer.innerHTML = `
             <div class="projects-grid">
                 ${projects.map(project => `
@@ -172,8 +194,8 @@
                             ${project.isPublic ? 'public' : 'private'}
                         </div>
                         <div class="project-preview">
-                            ${project.gifUrl ? 
-                                `<img src="${project.gifUrl}" alt="${project.name}">` : 
+                            ${project.gifUrl ?
+                                `<img src="${project.gifUrl}" alt="${project.name}">` :
                                 '<div class="project-preview-placeholder">[ current ]</div>'}
                         </div>
                         <div class="project-info">
@@ -184,11 +206,11 @@
                                 <div class="project-desc">${project.description.toLowerCase()}</div>
                             </div>
                             <div class="project-links">
-                                ${project.githubUrl ? 
-                                    `<a href="${project.githubUrl}" class="project-link" target="_blank">github</a>` : 
+                                ${project.githubUrl ?
+                                    `<a href="${project.githubUrl}" class="project-link" target="_blank">github</a>` :
                                     ''}
-                                ${project.liveUrl ? 
-                                    `<a href="${project.liveUrl}" class="project-link" target="_blank">live</a>` : 
+                                ${project.liveUrl ?
+                                    `<a href="${project.liveUrl}" class="project-link" target="_blank">live</a>` :
                                     ''}
                             </div>
                         </div>
@@ -203,13 +225,13 @@
 
         async function loadTech() {
             const techContainer = document.getElementById('tech-container');
-            
+
             try {
                 const response = await fetch(`${API_BASE}/tech`);
                 if (!response.ok) throw new Error('network error');
-                
+
                 const techItems = await response.json();
-                
+
                 // Group by category
                 const categories = {};
                 techItems.forEach(item => {
@@ -218,7 +240,7 @@
                     }
                     categories[item.category].push(item);
                 });
-                
+
                 techContainer.innerHTML = Object.entries(categories).map(([category, items]) => `
                     <div class="tech-category">
                         <div class="tech-category-title">${category}</div>
@@ -239,16 +261,14 @@
 
         // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                showHome();
-            } else if (e.key === '1') {
-                showHome();
+            if (e.key === 'Escape' || e.key === '1') {
+                goHome();
             } else if (e.key === '2') {
-                showContent('about');
+                navigate('about');
             } else if (e.key === '3') {
-                showContent('projects');
+                navigate('projects');
             } else if (e.key === '4') {
-                showContent('tech');  
+                navigate('tech');
             } else if (e.key === ' ') {
                 e.preventDefault();
                 cycleKaomoji();
@@ -262,25 +282,28 @@
 
         // For the cursor
         document.addEventListener('DOMContentLoaded', function() {
-        var cursor = document.createElement('div');
-        cursor.classList.add('custom-cursor');
-        document.body.appendChild(cursor);
+            var cursor = document.createElement('div');
+            cursor.classList.add('custom-cursor');
+            document.body.appendChild(cursor);
 
-        document.addEventListener('mousemove', function(e) {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        var linkElements = document.querySelectorAll('.link, .cards-cta');
-        linkElements.forEach(function(element) {
-            element.addEventListener('mouseenter', function() {
-            cursor.classList.add('scale-up');
+            document.addEventListener('mousemove', function(e) {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
             });
 
-            element.addEventListener('mouseleave', function() {
-            cursor.classList.remove('scale-up');
+            var linkElements = document.querySelectorAll('.link, .cards-cta');
+            linkElements.forEach(function(element) {
+                element.addEventListener('mouseenter', function() {
+                    cursor.classList.add('scale-up');
+                });
+
+                element.addEventListener('mouseleave', function() {
+                    cursor.classList.remove('scale-up');
+                });
             });
-        });
+
+            // Handle initial URL hash on page load
+            route();
         });
     </script>
 </body>
