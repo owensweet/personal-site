@@ -193,32 +193,45 @@
                     <div class="projects-grid">
                         ${projects.map(project => `
                             <div class="project-card">
-                                <div class="project-status ${project.isPublic ? 'public' : 'private'}">
-                                    ${project.isPublic ? 'public' : 'private'}
-                                </div>
                                 <div class="project-preview">
                                     ${project.gifUrl ?
                                         `<img src="${project.gifUrl}" alt="${project.name}">` :
-                                        '<div class="project-preview-placeholder">[ current ]</div>'}
+                                        '<div class="project-preview-placeholder">[ no preview ]</div>'}
                                 </div>
                                 <div class="project-info">
-                                    <div>
-                                        <div class="project-header">
-                                            <div class="project-title">${project.name.toLowerCase()}</div>
+                                    <div class="project-top">
+                                        <div class="project-meta">
+                                            <span class="project-status ${project.isPublic ? 'public' : 'private'}">${project.isPublic ? 'public' : 'private'}</span>
+                                            <div class="project-title">${project.name}</div>
                                         </div>
-                                        <div class="project-desc">${project.description.toLowerCase()}</div>
+                                        <span class="project-toggle">+</span>
                                     </div>
-                                    <div class="project-links">
-                                        ${project.githubUrl ?
-                                            `<a href="${project.githubUrl}" class="project-link" target="_blank">github</a>` : ''}
-                                        ${project.liveUrl ?
-                                            `<a href="${project.liveUrl}" class="project-link" target="_blank">live</a>` : ''}
+                                    <div class="project-expand">
+                                        <div class="project-expand-inner">
+                                            <div class="project-desc">${project.description}</div>
+                                            ${(project.githubUrl || project.liveUrl) ? `
+                                            <div class="project-links">
+                                                ${project.githubUrl ? `<a href="${project.githubUrl}" class="project-link" target="_blank">github ↗</a>` : ''}
+                                                ${project.liveUrl ? `<a href="${project.liveUrl}" class="project-link" target="_blank">live ↗</a>` : ''}
+                                            </div>` : ''}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         `).join('')}
                     </div>
                 `;
+
+                container.querySelectorAll('.project-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const isOpen = card.classList.contains('open');
+                        container.querySelectorAll('.project-card').forEach(c => c.classList.remove('open'));
+                        if (!isOpen) card.classList.add('open');
+                    });
+                    card.querySelectorAll('.project-link').forEach(link => {
+                        link.addEventListener('click', e => e.stopPropagation());
+                    });
+                });
             } catch (error) {
                 container.innerHTML = `<div class="error">failed to load: ${error.message}</div>`;
             }
