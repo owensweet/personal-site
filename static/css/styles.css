@@ -56,10 +56,10 @@
     --error:            #c0504a;
 
     /* Mobile toggle */
-    --toggle-bg:        #0d0d0d;
-    --toggle-bg-hover:  #161616;
-    --toggle-border:    rgba(255, 255, 255, 0.08);
-    --toggle-icon:      rgba(255, 255, 255, 0.35);
+    --toggle-bg:        #222;
+    --toggle-bg-hover:  #2a2a2a;
+    --toggle-border:    rgba(255, 255, 255, 0.20);
+    --toggle-icon:      rgba(255, 255, 255, 0.70);
     --sidebar-mobile-bg:#040404;
 }
 
