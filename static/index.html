@@ -26,7 +26,7 @@
         <div class="sidebar-info">
             <h1 class="name">Owen Sweet</h1>
             <p class="role">CS @ SFU</p>
-            <p class="bio">bcit cst grad. backend systems, infrastructure, and building things the right way.</p>
+            <p class="bio">bcit cst grad. backend, devops, infrastructure, and building things the right way.</p>
         </div>
 
         <nav class="explore-nav">
@@ -47,19 +47,127 @@
             <div id="projects-container" class="loading">loading...</div>
         </div>
 
-        <div id="about" class="content">
+        <div id="about" class="content about-page">
             <h2>about</h2>
-            <div id="about-text">
-                <p>Hey, I'm Owen, a junior level software engineer from the lower mainland of British Columbia, Canada. I'm a new graduate from BCIT and for the last 3 years I have been developing and maintaining backend systems for startups and local companies.</p>
 
-                <p>My coding journey started in elementary school when I discovered Hopscotch. It was basically Scratch for mobile, where you build programs by snapping blocks together instead of writing code. I remember making hundreds of games, almost everyday trying to remake games that I liked at the time, or just making something to show my friends. I was studying to become a physicist but I lost interest because I felt like I wasn't creating anything, and I wasn't solving problems that could help people. I had used python for physics simulations, and I was also curious about how 3D graphics worked so I decided to learn C. After a couple months of learning the basics of programming, I joined BCIT's competitive Computer Systems Technology program. It was an overwhelming amount of learning and hands-on projects, but I enjoyed being able to build projects every day. I enjoyed learning about Operating Systems and working with low level programs. I felt like I finally understood all the layers that make an application function, all the way down to the logic gates. The web development courses were also a great starting point and it got me started working on my own personal websites, making sure they are secure and easy to work with (CI/CD).</p>
+            <section class="about-hero">
+                <div class="hero-text">
+                    <h1 class="hero-title">hey, i'm owen.</h1>
+                    <p class="hero-lead">i'm a software engineer from Vancouver, British Columbia. For the last 3 years, I have been building and maintaining backend systems for local companies and startups.</p>
+                    <p class="hero-sub">in my free time i enjoy working on personal apps, going on a walk, making some music, or learning new frameworks and tools.</p>
+                </div>
+                <div class="hero-photos">
+                    <figure class="photo" data-cursor="hi">
+                        <img src="/static/images/me1.jpg" alt="Owen" onerror="this.classList.add('missing')">
+                        <figcaption>nanaimo, vancouver island</figcaption>
+                    </figure>
+                    <figure class="photo" data-cursor="meow">
+                        <img src="/static/images/me2.jpg" alt="Owen" onerror="this.classList.add('missing')">
+                        <figcaption>kyoto, japan</figcaption>
+                    </figure>
+                </div>
+            </section>
 
-                <p>Apart from classwork I would always be working on side projects, even though the first couple ones were poorly made in retrospect. I remember making a web app that was just pure node.js and html. Now I take into account web architecture patterns, SOLID design principles, and just better frameworks to abstract a lot of the annoyances of JavaScript programming. I finished BCIT with a 4.0 GPA and with the Programming Paradigms specialization. Basically we had specialized courses for functional programming, concurrency, and distributed systems in languages like Elixir, Go, Rust, Haskell, and even OCaml (I actually don't hate this language). I really liked Rust once I got used to it and I made a simple mp3 player with terminal UI. Go was also an interesting language and I actually made the server side for my personal website with the Go http package. At the end of the program, there was a class wide project to create a real-time game using the web framework for Elixir called Phoenix. I made the PRs for the full multiplayer backend which included functionality for the lobby and rooms, and real-time updates to each player's UI. It was a nice test of my knowledge and was a fun project to work on. Also working with that many people was fun, even though it wasn't easy to coordinate features.</p>
+            <section class="about-block">
+                <h3 class="block-title">what i do</h3>
+                <div class="focus-grid">
+                    <article class="focus-card">
+                        <h4 class="focus-title">backend systems</h4>
+                        <p class="focus-desc">designing and building secure, performant backend services. from system architecure and API design to auth, security, and performance profiling.</p>
+                    </article>
+                    <article class="focus-card">
+                        <h4 class="focus-title">infrastructure &amp; ci/cd</h4>
+                        <p class="focus-desc">managing containerization, ci/cd pipelines, infrastructure-as-code, and just helping the team ship without breaking core features.</p>
+                    </article>
+                    <article class="focus-card">
+                        <h4 class="focus-title">learning</h4>
+                        <p class="focus-desc">always studying and brushing up on system architecture, program design principles, and different ways of approaching problems such as functional programming.</p>
+                    </article>
+                </div>
+            </section>
 
-                <p>Outside of work, I like to make music. I played guitar for 9 years, and then moved to making music on my computer from the start of grade 8 till now. I make just instrumental songs but some of the songs I've produced for other people have gotten hundreds of thousands of streams. I also love competitive games, and I've played Tom Clancy's Rainbow Six Siege at the highest level on and off for 7 years. I reached the highest rank in the game and achieved the top 2500 players globally, playing against professional players and streamers. I also played soccer growing up and made it to the top team in my club after climbing from the lowest rank team.</p>
+            <section class="about-block">
+                <h3 class="block-title">right now</h3>
+                <div class="now-card">
+                    <p>learning rust, TUI development, and distributed systems with elixir. i enjoy working on my next.js clothing website, making sure transactions are secure, and the frontend looks cool for the ~40 daily users.</p>
+                </div>
+            </section>
 
-                <p>I am currently interested in CI/CD tools and systems programming.</p>
-            </div>
+            <section class="about-block">
+                <h3 class="block-title">my journey</h3>
+                <p class="story-lead">a quantum physicist turned programming hobbyist (kind of).</p>
+                <ol class="timeline">
+                    <li class="tl-item">
+                        <div class="tl-head">
+                            <span class="tl-date">2023</span>
+                            <span class="tl-title">the start</span>
+                        </div>
+                        <p class="tl-text">i was at UBC hoping to be a quantum physicist but i felt like the problems i was solving didn't have any impact in the real world. so i left and started learning C on my own. shortly after, i joined BCIT's Computer Systems Technology program in hopes of getting hands-on experience with building applications and solutions within teams. </p>
+                    </li>
+                    <li class="tl-item">
+                        <div class="tl-head">
+                            <span class="tl-date">2024</span>
+                            <span class="tl-title">getting reps in</span>
+                        </div>
+                        <p class="tl-text">the fast paced learning at BCIT forced me to go deep into programming fundamentals, object-oriented programming, networking, operating systems, web development, and much more. it was really hard but i enjoyed knowing more and more about the software running our world, and all the different ways to create it.</p>
+                    </li>
+                    <li class="tl-item">
+                        <div class="tl-head">
+                            <span class="tl-date">2026</span>
+                            <span class="tl-title">shipping for real</span>
+                        </div>
+                        <p class="tl-text">now i was learning industry standard frameworks, tools, and tech stacks. a lot of my earlier projects were local or hosted with some 3rd party service, but now i had to learn how to deploy it myself using either cloud services or in-house infrastructure. real production environments was a real learning curve for me, but having the responsibility of managing uptimes and deployments made me more confident in my abilities. </p>
+                    </li>
+                </ol>
+            </section>
+
+            <section class="about-block">
+                <h3 class="block-title">albums i like (under construction)</h3>
+                <div class="cover-grid">
+                    <figure class="cover" data-cursor="listen">
+                        <div class="cover-art"><img src="/static/images/albums/1.jpg" alt="" onerror="this.classList.add('missing')"></div>
+                        <figcaption><span class="cover-title">album</span><span class="cover-sub">artist</span></figcaption>
+                    </figure>
+                    <figure class="cover" data-cursor="listen">
+                        <div class="cover-art"><img src="/static/images/albums/2.jpg" alt="" onerror="this.classList.add('missing')"></div>
+                        <figcaption><span class="cover-title">album</span><span class="cover-sub">artist</span></figcaption>
+                    </figure>
+                    <figure class="cover" data-cursor="listen">
+                        <div class="cover-art"><img src="/static/images/albums/3.jpg" alt="" onerror="this.classList.add('missing')"></div>
+                        <figcaption><span class="cover-title">album</span><span class="cover-sub">artist</span></figcaption>
+                    </figure>
+                    <figure class="cover" data-cursor="listen">
+                        <div class="cover-art"><img src="/static/images/albums/4.jpg" alt="" onerror="this.classList.add('missing')"></div>
+                        <figcaption><span class="cover-title">album</span><span class="cover-sub">artist</span></figcaption>
+                    </figure>
+                    <figure class="cover" data-cursor="listen">
+                        <div class="cover-art"><img src="/static/images/albums/5.jpg" alt="" onerror="this.classList.add('missing')"></div>
+                        <figcaption><span class="cover-title">album</span><span class="cover-sub">artist</span></figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <section class="about-block">
+                <h3 class="block-title">games i've been playing (under construction)</h3>
+                <div class="cover-grid games-grid">
+                    <figure class="cover" data-cursor="play">
+                        <div class="cover-art"><img src="/static/images/games/1.jpg" alt="" onerror="this.classList.add('missing')"></div>
+                        <figcaption><span class="cover-title">game</span></figcaption>
+                    </figure>
+                    <figure class="cover" data-cursor="play">
+                        <div class="cover-art"><img src="/static/images/games/2.jpg" alt="" onerror="this.classList.add('missing')"></div>
+                        <figcaption><span class="cover-title">game</span></figcaption>
+                    </figure>
+                    <figure class="cover" data-cursor="play">
+                        <div class="cover-art"><img src="/static/images/games/3.jpg" alt="" onerror="this.classList.add('missing')"></div>
+                        <figcaption><span class="cover-title">game</span></figcaption>
+                    </figure>
+                    <figure class="cover" data-cursor="play">
+                        <div class="cover-art"><img src="/static/images/games/4.jpg" alt="" onerror="this.classList.add('missing')"></div>
+                        <figcaption><span class="cover-title">game</span></figcaption>
+                    </figure>
+                </div>
+            </section>
         </div>
 
         <div id="tech" class="content">
@@ -114,6 +222,8 @@
                 if (section === 'projects') loadProjects();
                 else if (section === 'tech') loadTech();
             }
+
+            document.querySelector('.main-content').scrollTop = 0;
         }
 
         function navigate(section) {
@@ -294,10 +404,38 @@
             // Custom cursor
             const cursor = document.createElement('div');
             cursor.classList.add('custom-cursor');
+            const cursorLabel = document.createElement('span');
+            cursorLabel.classList.add('cursor-label');
+            cursor.appendChild(cursorLabel);
             document.body.appendChild(cursor);
             document.addEventListener('mousemove', function(e) {
                 cursor.style.left = e.clientX + 'px';
                 cursor.style.top = e.clientY + 'px';
+            });
+
+            // Circle stretches into a text pill over any [data-cursor] element
+            document.addEventListener('mouseover', function(e) {
+                const target = e.target.closest('[data-cursor]');
+                if (!target) return;
+                cursorLabel.textContent = target.dataset.cursor;
+                cursor.classList.add('morph');
+                cursor.style.width = (cursorLabel.offsetWidth + 28) + 'px';
+            });
+            document.addEventListener('mouseout', function(e) {
+                const target = e.target.closest('[data-cursor]');
+                if (!target || target.contains(e.relatedTarget)) return;
+                cursor.classList.remove('morph');
+                cursor.style.width = '';
+            });
+
+            // Route on nav click without the browser's native anchor scroll-jump
+            document.querySelectorAll('.nav-item[data-section]').forEach(item => {
+                item.addEventListener('click', e => {
+                    e.preventDefault();
+                    const section = item.dataset.section;
+                    if (window.location.hash.slice(1) === section) showContent(section);
+                    else window.location.hash = section;
+                });
             });
 
             initNavHighlight();
